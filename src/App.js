@@ -2,7 +2,7 @@ import './App.css';
 import { Canvas } from "@react-three/fiber"
 import { Environment, OrbitControls, Loader } from '@react-three/drei'
 import React, { Suspense, useEffect, useState } from "react"
-import Model from "./comps/Planet"
+import Model from "./comps/Planet2"
 
 // const Earth = () => {
 //   const { scene } = useGLTF('/planet.glb')
