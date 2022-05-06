@@ -13,12 +13,13 @@ const defaultObjects =  {
   huizen: false,
   bomen: false,
   boten: false,
-  vliegtuig: false,
+  vliegtuig: false
 }
 
 function App() {
   const [objects, setObjects] = useState(defaultObjects)
   const [playing, setPlaying] = useState(false)
+  const [bgColor, setBgColor] = useState('#ffbf40')
   const [audio] = useState(new Audio("/music.mp3"))
   const {huizen, bomen, boten, vliegtuig, } = objects
 
@@ -27,6 +28,11 @@ function App() {
   const handleDisplay = (name, value) => {
     setObjects({ ...objects, [name]: !value });
   };
+
+  const handleBgColor = (event) => {
+    const {value} = event.target
+    setBgColor(value)
+  }
 
   useEffect(() => {
     playing ? audio.play() : audio.pause();
@@ -41,9 +47,14 @@ function App() {
 
   return (
     <>
-      <Canvas camera={{ fov: 50 }}>
-        <color attach="background" args={["#ffbf40"]} />
-        <spotLight position={[10, 10, 10]} intensity={1} />
+      <Canvas camera={{ fov: 50 }} shadows>
+        <color attach="background" args={[bgColor]} />
+        <spotLight position={[10, 10, 10]} intensity={1}/>
+        <directionalLight
+  intensity={0.5}
+  castShadow  shadow-mapSize-height={512}
+  shadow-mapSize-width={512}
+/>
         <Suspense>
           <Environment preset='sunset' />
           <Model objects={objects} playing={playing}/>
@@ -66,6 +77,11 @@ function App() {
         <div>
           <p>AUDIO</p>
           <button onClick={() => setPlaying(!playing)}>{playing ? 'pauze' : 'play'}</button>
+        </div>
+
+        <div>
+          <p>BG COLOR</p>
+          <input type='color' onChange={handleBgColor}/>
         </div>
       </div>
     </>
