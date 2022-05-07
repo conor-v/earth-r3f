@@ -10,15 +10,15 @@ export default function Model({ objects, playing }) {
   const {huizen, bomen, boten, vliegtuig} = objects
   const group = useRef()
   const plane = useRef()
-  const { nodes, materials } = useGLTF('../../../planet2.glb')
+  const { nodes, materials } = useGLTF('../../../planet3.glb')
 
   useFrame(() => {
     if (playing) {
-      group.current.rotation.x += .005
+      group.current.rotation.y += .005
     }
 
     if (vliegtuig) {
-      plane.current.rotation.z += .005
+      plane.current.rotation.z += .01
     }
   })
   return (
@@ -40,13 +40,14 @@ export default function Model({ objects, playing }) {
           </group>
         </>
       }
-       {/* huizen */}
-       { huizen &&
+
+      {/* huizen */}
+      { huizen &&
         <>
           <mesh geometry={nodes.Plane001.geometry} material={materials.muren} />
           <mesh geometry={nodes.Plane001_1.geometry} material={materials.dak} />
         </>
-       }
+      }
 
       {/* bomen */}
       { bomen &&
@@ -61,7 +62,7 @@ export default function Model({ objects, playing }) {
 
       {/* viegtuig */}
       {vliegtuig &&
-        <group ref={plane} position={[0.18, 0.95, -0.17]} rotation={[-3.06, -1.01, -2.91]} scale={[-0.33, -0.06, -0.06]}>
+        <group ref={plane} rotation={[-2.99, -0.99, -2.87]} scale={[-0.33, -0.06, -0.06]}>
           <mesh geometry={nodes.Plane003.geometry} material={materials.muren} />
           <mesh geometry={nodes.Plane003_1.geometry} material={materials.dak} />
           <mesh geometry={nodes.Plane003_2.geometry} material={materials.glass} />
@@ -71,4 +72,4 @@ export default function Model({ objects, playing }) {
   )
 }
 
-useGLTF.preload('../../../planet2.glb')
+useGLTF.preload('../../../planet3.glb')
