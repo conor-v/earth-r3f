@@ -7,14 +7,15 @@ import { useGLTF } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
 
 export default function Model({ objects, playing }) {
-  const {huizen, bomen, boten, vliegtuig} = objects
+  const {huizen, bomen, boten, vliegtuig, speed} = objects
   const group = useRef()
   const plane = useRef()
+  const boot = useRef()
   const { nodes, materials } = useGLTF('../../../planet3.glb')
 
   useFrame(() => {
     if (playing) {
-      group.current.rotation.y += .005
+      group.current.rotation.y += parseFloat(speed)
     }
 
     if (vliegtuig) {
@@ -26,15 +27,15 @@ export default function Model({ objects, playing }) {
       {/* boten */}
       { boten &&
         <>
-          <group position={[-0.29, 0.64, 0.69]} rotation={[0.32, 0.94, 0.47]} scale={[-0.32, -0.08, -0.08]}>
+          <group ref={boot} position={[-0.29, 0.64, 0.69]} rotation={[0.32, 0.94, 0.47]} scale={[-0.32, -0.08, -0.08]}>
             <mesh geometry={nodes.Plane002.geometry} material={materials.boat} />
             <mesh geometry={nodes.Plane002_1.geometry} material={materials.muren} />
           </group>
-          <group position={[0.73, -0.66, 0.06]} rotation={[0.39, -0.36, -2.25]} scale={[-0.32, -0.08, -0.08]}>
+          <group ref={boot} position={[0.73, -0.66, 0.06]} rotation={[0.39, -0.36, -2.25]} scale={[-0.32, -0.08, -0.08]}>
             <mesh geometry={nodes.Plane065.geometry} material={materials.boat} />
             <mesh geometry={nodes.Plane065_1.geometry} material={materials.muren} />
           </group>
-          <group position={[-0.45, 0.09, -0.87]} rotation={[-1.96, 0.74, 0.6]} scale={[-0.32, -0.08, -0.08]}>
+          <group ref={boot} position={[-0.45, 0.09, -0.87]} rotation={[-1.96, 0.74, 0.6]} scale={[-0.32, -0.08, -0.08]}>
             <mesh geometry={nodes.Plane066.geometry} material={materials.boat} />
             <mesh geometry={nodes.Plane066_1.geometry} material={materials.muren} />
           </group>
